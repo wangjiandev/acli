@@ -19,6 +19,36 @@ pub struct Cli {
 pub enum Commands {
     /// csv to json
     Csv(CsvOptions),
+
+    /// gen password
+    Genpass(GenpassOptions),
+}
+
+/// # example
+/// ```sh
+/// cargo run -- genpass
+/// ```
+#[derive(Args, Debug)]
+pub struct GenpassOptions {
+    /// length
+    #[arg(short, long, default_value_t = 16)]
+    pub length: u8,
+
+    /// no lowercase
+    #[arg(long, default_value_t = false)]
+    pub lowercase: bool,
+
+    /// no uppercase
+    #[arg(long, default_value_t = false)]
+    pub uppercase: bool,
+
+    /// no numbers
+    #[arg(long, default_value_t = false)]
+    pub numbers: bool,
+
+    /// no symbols
+    #[arg(long, default_value_t = false)]
+    pub symbols: bool,
 }
 
 /// # example

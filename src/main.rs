@@ -16,6 +16,9 @@ fn main() -> Result<()> {
             };
             process_csv(&options.input, output, options.format)?;
         }
+        Commands::Genpass(options) => {
+            println!("{:?}", options);
+        }
     }
     Ok(())
 }
