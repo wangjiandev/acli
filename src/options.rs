@@ -1,5 +1,5 @@
-use anyhow::{ anyhow, Ok, Result };
-use clap::{ Args, Parser, Subcommand };
+use anyhow::{anyhow, Ok, Result};
+use clap::{Args, Parser, Subcommand};
 use std::path::Path;
 
 #[derive(Parser)]

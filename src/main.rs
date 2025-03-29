@@ -1,5 +1,8 @@
-use acli::{ options::{ Cli, Commands }, process::process_csv };
-use anyhow::{ Ok, Result };
+use acli::{
+    options::{Cli, Commands},
+    process::process_csv,
+};
+use anyhow::{Ok, Result};
 use clap::Parser;
 
 fn main() -> Result<()> {

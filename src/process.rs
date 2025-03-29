@@ -1,28 +1,16 @@
-use std::fs;
-
-use anyhow::{ Ok, Result };
+use anyhow::{Ok, Result};
 use csv::Reader;
-use serde::{ Deserialize, Serialize };
-
-// Name,Position,DOB,Nationality,Kit Number
-#[derive(Deserialize, Serialize, Debug)]
-#[serde(rename_all = "PascalCase")]
-struct Player {
-    name: String,
-    position: String,
-    #[serde(rename = "DOB")]
-    dob: String,
-    nationality: String,
-    #[serde(rename = "Kit Number")]
-    kit_number: String,
-}
+use serde_json::Value;
+use std::fs;
 
 pub fn process_csv(input: &str, output: &str) -> Result<()> {
     let mut reader = Reader::from_path(input)?;
-    let mut ret = Vec::new();
-    for result in reader.deserialize() {
-        let record: Player = result?;
-        ret.push(record);
+    let mut ret = Vec::with_capacity(128);
+    let headers = reader.headers()?.clone();
+    for result in reader.records() {
+        let record = result?;
+        let json_value = headers.iter().zip(record.iter()).collect::<Value>();
+        ret.push(json_value);
     }
     let json = serde_json::to_string_pretty(&ret)?;
     fs::write(output, json)?;
